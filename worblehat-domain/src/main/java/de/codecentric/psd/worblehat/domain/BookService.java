@@ -15,6 +15,8 @@ public interface BookService {
 
   List<Book> findAllBooks();
 
+  List<Book> findAllBooksByBorrower(String email);
+
   Optional<Book> createBook(
       String title, String author, String edition, String isbn, int yearOfPublication);
 

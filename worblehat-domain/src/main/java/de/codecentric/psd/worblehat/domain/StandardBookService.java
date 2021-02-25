@@ -61,6 +61,11 @@ public class StandardBookService implements BookService {
   }
 
   @Override
+  public List<Book> findAllBooksByBorrower(String email) {
+    return bookRepository.findAllByBorrower(email);
+  }
+
+  @Override
   public Optional<Book> createBook(
       @Nonnull String title,
       @Nonnull String author,
