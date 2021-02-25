@@ -3,7 +3,7 @@ package de.codecentric.psd.worblehat.domain;
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isEmpty;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -35,7 +35,8 @@ public class StandardBookServiceTest {
     aCopyofBook = new Book("title", "author", "edition", "isbn", 2016);
     anotherBook = new Book("title2", "author2", "edition2", "isbn2", 2016);
 
-    aBorrowedBook = new Book("title", "author", "edition", "isbn", 2016);
+    aBorrowedBook = new Book("title", "author", "edition" +
+        "", "isbn", 2016);
     aBorrowing = new Borrowing(aBorrowedBook, BORROWER_EMAIL, NOW);
     aBorrowedBook.borrowNowByBorrower(BORROWER_EMAIL);
 
@@ -54,6 +55,8 @@ public class StandardBookServiceTest {
         .thenReturn(Arrays.asList(aBorrowing, anotherBorrowing));
 
     when(borrowingRepository.findBorrowingForBook(aBook)).thenReturn(null);
+
+    when(bookRepository.findAllByBorrower(BORROWER_EMAIL)).thenReturn(List.of(aBorrowedBook));
 
     bookService = new StandardBookService(borrowingRepository, bookRepository);
   }
@@ -215,4 +218,18 @@ public class StandardBookServiceTest {
     verify(bookRepository).deleteAll();
     verify(borrowingRepository).deleteAll();
   }
+
+    @Test
+    public void shouldShowAllBorrowingBooks() {
+        List<Book> allBooksByBorrower = bookService.findAllBooksByBorrower(BORROWER_EMAIL);
+        assertThat(allBooksByBorrower.size(), is(1));
+
+        Book book = allBooksByBorrower.get(0);
+        assertEquals(aBook.getIsbn(), book.getIsbn());
+        assertEquals(aBook.getTitle(), book.getTitle());
+        assertEquals(aBook.getAuthor(), book.getAuthor());
+        assertEquals(aBook.getYearOfPublication(), book.getYearOfPublication());
+        assertEquals(aBook.getEdition(), book.getEdition());
+
+    }
 }
