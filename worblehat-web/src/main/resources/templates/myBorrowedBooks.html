@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Show My Books</title>
+</head>
+<body>
+	<table class="bookList">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>ISBN</th>
+			<th>Return Date</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="book : ${books}">
+			<td th:text="${book.title}">Harry Potter</td>
+			<td th:text="${book.isbn}">123456</td>
+			<td th:text="${book?.borrowing?.borrowDate}">someone@codecentric.de</td>
+		</tr>
+	</tbody>
+	</table>
+	<hr />
+	<a th:href="@{/}">Back to Home</a>
+</body>
+</html>

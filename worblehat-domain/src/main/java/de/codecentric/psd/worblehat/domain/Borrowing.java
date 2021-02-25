@@ -26,6 +26,10 @@ public class Borrowing implements Serializable {
     return borrowerEmailAddress;
   }
 
+  public String getBorrowDate() {
+    return borrowDate.toString();
+  }
+
   /**
    * @param book The borrowed book
    * @param borrowerEmailAddress The borrowers e-mail Address
