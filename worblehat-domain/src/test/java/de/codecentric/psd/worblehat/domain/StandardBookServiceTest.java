@@ -35,8 +35,7 @@ public class StandardBookServiceTest {
     aCopyofBook = new Book("title", "author", "edition", "isbn", 2016);
     anotherBook = new Book("title2", "author2", "edition2", "isbn2", 2016);
 
-    aBorrowedBook = new Book("title", "author", "edition" +
-        "", "isbn", 2016);
+    aBorrowedBook = new Book("title", "author", "edition" + "", "isbn", 2016);
     aBorrowing = new Borrowing(aBorrowedBook, BORROWER_EMAIL, NOW);
     aBorrowedBook.borrowNowByBorrower(BORROWER_EMAIL);
 
@@ -219,17 +218,16 @@ public class StandardBookServiceTest {
     verify(borrowingRepository).deleteAll();
   }
 
-    @Test
-    public void shouldShowAllBorrowingBooks() {
-        List<Book> allBooksByBorrower = bookService.findAllBooksByBorrower(BORROWER_EMAIL);
-        assertThat(allBooksByBorrower.size(), is(1));
+  @Test
+  public void shouldShowAllBorrowingBooks() {
+    List<Book> allBooksByBorrower = bookService.findAllBooksByBorrower(BORROWER_EMAIL);
+    assertThat(allBooksByBorrower.size(), is(1));
 
-        Book book = allBooksByBorrower.get(0);
-        assertEquals(aBook.getIsbn(), book.getIsbn());
-        assertEquals(aBook.getTitle(), book.getTitle());
-        assertEquals(aBook.getAuthor(), book.getAuthor());
-        assertEquals(aBook.getYearOfPublication(), book.getYearOfPublication());
-        assertEquals(aBook.getEdition(), book.getEdition());
-
-    }
+    Book book = allBooksByBorrower.get(0);
+    assertEquals(aBook.getIsbn(), book.getIsbn());
+    assertEquals(aBook.getTitle(), book.getTitle());
+    assertEquals(aBook.getAuthor(), book.getAuthor());
+    assertEquals(aBook.getYearOfPublication(), book.getYearOfPublication());
+    assertEquals(aBook.getEdition(), book.getEdition());
+  }
 }

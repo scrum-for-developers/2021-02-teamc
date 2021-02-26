@@ -21,12 +21,6 @@ public class ISBNConstraintValidatorTest {
   }
 
   @Test
-  public void initializeShouldTakeIsbn() throws Exception {
-    ISBN isbn = mock(ISBN.class);
-    isbnConstraintValidator.initialize(isbn);
-  }
-
-  @Test
   public void shouldReturnTrueIfBlank() throws Exception {
     boolean actual = isbnConstraintValidator.isValid("", constraintValidatorContext);
     assertTrue(actual);

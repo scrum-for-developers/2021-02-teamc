@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BorrowBookController {
 
+  public static final String BORROW_PAGE = "borrow";
   private BookService bookService;
 
   @Autowired
@@ -41,12 +42,12 @@ public class BorrowBookController {
       @ModelAttribute("borrowFormData") @Valid BookBorrowFormData borrowFormData,
       BindingResult result) {
     if (result.hasErrors()) {
-      return "borrow";
+      return BORROW_PAGE;
     }
     Set<Book> books = bookService.findBooksByIsbn(borrowFormData.getIsbn());
     if (books.isEmpty()) {
       result.rejectValue("isbn", "noBookExists");
-      return "borrow";
+      return BORROW_PAGE;
     }
     Optional<Borrowing> borrowing =
         bookService.borrowBook(borrowFormData.getIsbn(), borrowFormData.getEmail());
@@ -56,7 +57,7 @@ public class BorrowBookController {
         .orElseGet(
             () -> {
               result.rejectValue("isbn", "noBorrowableBooks");
-              return "borrow";
+              return BORROW_PAGE;
             });
   }
 
