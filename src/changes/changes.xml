@@ -32,5 +32,13 @@
 				Helpful error messages.
 			</action>
 		</release>
+		<release version="1.3.0" date="2021-02-26"
+			description="Release with much improved functionality">
+			<action dev="betaworblers" type="update">
+				ISBN 13 can be use.
+				Fix Sonarqube issues.
+				Diffrent editions of a book must have a different ISBN.
+			</action>
+		</release>
 	</body>
 </document>
